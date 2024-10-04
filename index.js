@@ -50,19 +50,42 @@ function playRound(humanChoice, computerChoice) {
     return true;
 }
 
+function scissorsUser() {
+    const humanChoice = "scissors";
+    const computerChoice = getComputerChoice();
+    const round = playRound(humanChoice, computerChoice);
+}
+
+function paperUser() {
+    const humanChoice = "paper";
+    const computerChoice = getComputerChoice();
+    const round = playRound(humanChoice, computerChoice);
+}
+
+function rockUser() {
+    const humanChoice = "rock";
+    const computerChoice = getComputerChoice();
+    const round = playRound(humanChoice, computerChoice);
+}
+
 function playGame() {
     const scissors = document.createElement("button");
     scissors.classList.toggle("scissors");
+    scissors.textContent = "Scissors";
     document.body.appendChild(scissors);
-    
+    scissors.addEventListener("click", scissorsUser);
+
     const rock = document.createElement("button");
     rock.classList.toggle("rock");
-    document.body.appendChild(scissors);
+    rock.textContent = "Rock";
+    document.body.appendChild(rock);
+    rock.addEventListener("click", rockUser);
 
     const paper = document.createElement("button");
-    paper.classList.toggle("paper")
-    document.body.appendChild(scissors);
-
+    paper.classList.toggle("paper");
+    paper.textContent = "Paper";
+    document.body.appendChild(paper);
+    paper.addEventListener("click", paperUser);
 
     if (humanScore > computerScore) {
         console.log(
