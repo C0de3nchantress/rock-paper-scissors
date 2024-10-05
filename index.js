@@ -81,10 +81,7 @@ let roundsPlayed = 0;
 function playGame() {
     const maxRounds = 5;
 
-    const scissors = document.createElement("button");
-    scissors.classList.toggle("scissors");
-    scissors.textContent = "Scissors";
-    document.body.appendChild(scissors);
+    const scissors = document.querySelector(".scissors");
     scissors.addEventListener("click", () => {
         if (roundsPlayed < maxRounds) {
             const roundResult = scissorsUser();
@@ -95,10 +92,7 @@ function playGame() {
         }
     });
 
-    const rock = document.createElement("button");
-    rock.classList.toggle("rock");
-    rock.textContent = "Rock";
-    document.body.appendChild(rock);
+    const rock = document.querySelector(".rock");
     rock.addEventListener("click", () => {
         if (roundsPlayed < maxRounds) {
             const roundResult = rockUser();
@@ -109,10 +103,7 @@ function playGame() {
         }
     });
 
-    const paper = document.createElement("button");
-    paper.classList.toggle("paper");
-    paper.textContent = "Paper";
-    document.body.appendChild(paper);
+    const paper = document.querySelector(".paper");
     paper.addEventListener("click", () => {
         const roundResult = paperUser();
         if (roundResult) {
