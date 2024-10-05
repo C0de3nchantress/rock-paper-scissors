@@ -25,7 +25,7 @@ function playRound(humanChoice, computerChoice) {
         console.log("It's a tie!");
         return false;
     }
-
+    const result = document.createElement("div");
     if (
         (humanChoice === "rock" && computerChoice === "scissors") ||
         (humanChoice === "scissors" && computerChoice === "paper") ||
@@ -39,66 +39,105 @@ function playRound(humanChoice, computerChoice) {
         );
         humanScore++;
         return true;
+    } else if (
+        (computerChoice === "rock" && humanChoice === "scissors") ||
+        (computerChoice === "scissors" && humanChoice === "paper") ||
+        (computerChoice === "paper" && humanChoice === "rock")
+    ){
+        console.log(
+            `You lose! ${
+                computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1)
+            } beats ${humanChoice}.`
+        );
+        computerScore++;
+        return true;
     }
-
-    console.log(
-        `You lose! ${
-            computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1)
-        } beats ${humanChoice}.`
-    );
-    computerScore++;
-    return true;
+    return false;
 }
-
+let humanChoice;
 function scissorsUser() {
-    const humanChoice = "scissors";
+    humanChoice = "scissors";
     const computerChoice = getComputerChoice();
     const round = playRound(humanChoice, computerChoice);
+    return round;
 }
 
 function paperUser() {
-    const humanChoice = "paper";
+    humanChoice = "paper";
     const computerChoice = getComputerChoice();
     const round = playRound(humanChoice, computerChoice);
+    return round;
 }
 
 function rockUser() {
-    const humanChoice = "rock";
+    humanChoice = "rock";
     const computerChoice = getComputerChoice();
     const round = playRound(humanChoice, computerChoice);
+    return round;
 }
 
+let roundsPlayed = 0;
+
 function playGame() {
+    const maxRounds = 5;
+
     const scissors = document.createElement("button");
     scissors.classList.toggle("scissors");
     scissors.textContent = "Scissors";
     document.body.appendChild(scissors);
-    scissors.addEventListener("click", scissorsUser);
+    scissors.addEventListener("click", () => {
+        if (roundsPlayed < maxRounds) {
+            const roundResult = scissorsUser();
+            if (roundResult) {
+                roundsPlayed++;
+            }
+            checkGameOver();
+        }
+    });
 
     const rock = document.createElement("button");
     rock.classList.toggle("rock");
     rock.textContent = "Rock";
     document.body.appendChild(rock);
-    rock.addEventListener("click", rockUser);
+    rock.addEventListener("click", () => {
+        if (roundsPlayed < maxRounds) {
+            const roundResult = rockUser();
+            if (roundResult) {
+                roundsPlayed++;
+            }
+            checkGameOver();
+        }
+    });
 
     const paper = document.createElement("button");
     paper.classList.toggle("paper");
     paper.textContent = "Paper";
     document.body.appendChild(paper);
-    paper.addEventListener("click", paperUser);
+    paper.addEventListener("click", () => {
+        const roundResult = paperUser();
+        if (roundResult) {
+            roundsPlayed++;
+        }
+        checkGameOver();
+    });
+}
 
-    if (humanScore > computerScore) {
-        console.log(
-            `You finished the game with ${humanScore} points and won the game by ${
-                humanScore - computerScore
-            } point(s)!`
-        );
-    } else {
-        console.log(
-            `You finished the game with ${humanScore} points and lost the game by ${
-                computerScore - humanScore
-            } point(s)!`
-        );
+function checkGameOver() {
+    const maxRounds = 5;
+    if (roundsPlayed >= maxRounds) {
+        if (humanScore > computerScore) {
+            console.log(
+                `You finished the game with ${humanScore} points and won the game by ${
+                    humanScore - computerScore
+                } point(s)!`
+            );
+        } else {
+            console.log(
+                `You finished the game with ${humanScore} points and lost the game by ${
+                    computerScore - humanScore
+                } point(s)!`
+            );
+        }
     }
 }
 
