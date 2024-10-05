@@ -21,8 +21,8 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    width: 100%;
+    max-width: 100%;
+    gap: 16px;
 }
 
 .button {
@@ -53,6 +53,7 @@ html, body {
     align-items: center ;
     justify-content: space-between;
     gap: 10px;
+    max-width: 100%;
 }
 
 .human-pick, .computer-pick {
