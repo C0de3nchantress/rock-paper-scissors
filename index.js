@@ -21,10 +21,17 @@ let computerScore = 0;
 
 function playRound(humanChoice, computerChoice) {
     const roundResult = document.querySelector(".round-result");
+
     const humanPick = document.querySelector(".human-pick");
     const computerPick = document.querySelector(".computer-pick")
     humanPick.textContent = `You picked: ${humanChoice}`;
     computerPick.textContent = `Computer picked: ${computerChoice}`
+    
+    const humanScoreTrack = document.querySelector(".human-score");
+    const computerScoreTrack = document.querySelector(".computer-score")
+
+    
+    
     if (humanChoice === computerChoice) {
         roundResult.textContent = "It's a tie!";
         return false;
@@ -39,6 +46,7 @@ function playRound(humanChoice, computerChoice) {
             humanChoice.slice(1).toLowerCase()
         } beats ${computerChoice}.`;
         humanScore++;
+        humanScoreTrack.textContent = `Your Score: ${humanScore}`
         return true;
     } else if (
         (computerChoice === "rock" && humanChoice === "scissors") ||
@@ -49,6 +57,7 @@ function playRound(humanChoice, computerChoice) {
             computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1)
         } beats ${humanChoice}.`;
         computerScore++;
+        computerScoreTrack.textContent = `Computer's Score: ${computerScore}`
         return true;
     } 
 }
@@ -115,19 +124,16 @@ function playGame() {
 
 function checkGameOver() {
     const maxRounds = 5;
+    const roundResult = document.querySelector(".round-result");
     if (roundsPlayed >= maxRounds) {
         if (humanScore > computerScore) {
-            console.log(
-                `You finished the game with ${humanScore} points and won the game by ${
+            roundResult.textContent = `You finished the game with ${humanScore} points and won the game by ${
                     humanScore - computerScore
                 } point(s)!`
-            );
         } else {
-            console.log(
-                `You finished the game with ${humanScore} points and lost the game by ${
+            roundResult.textContent = `You finished the game with ${humanScore} points and lost the game by ${
                     computerScore - humanScore
                 } point(s)!`
-            );
         }
     }
 }
