@@ -20,39 +20,37 @@ let humanScore = 0;
 let computerScore = 0;
 
 function playRound(humanChoice, computerChoice) {
-    console.log(`You picked ${humanChoice}, Computer picked ${computerChoice}`);
+    const roundResult = document.querySelector(".round-result");
+    const humanPick = document.querySelector(".human-pick");
+    const computerPick = document.querySelector(".computer-pick")
+    humanPick.textContent = `You picked: ${humanChoice}`;
+    computerPick.textContent = `Computer picked: ${computerChoice}`
     if (humanChoice === computerChoice) {
-        console.log("It's a tie!");
+        roundResult.textContent = "It's a tie!";
         return false;
     }
-    const result = document.createElement("div");
     if (
         (humanChoice === "rock" && computerChoice === "scissors") ||
         (humanChoice === "scissors" && computerChoice === "paper") ||
         (humanChoice === "paper" && computerChoice === "rock")
     ) {
-        console.log(
-            `You win! ${
-                humanChoice.charAt(0).toUpperCase() +
-                humanChoice.slice(1).toLowerCase()
-            } beats ${computerChoice}.`
-        );
+        roundResult.textContent = `You win! ${
+            humanChoice.charAt(0).toUpperCase() +
+            humanChoice.slice(1).toLowerCase()
+        } beats ${computerChoice}.`;
         humanScore++;
         return true;
     } else if (
         (computerChoice === "rock" && humanChoice === "scissors") ||
         (computerChoice === "scissors" && humanChoice === "paper") ||
         (computerChoice === "paper" && humanChoice === "rock")
-    ){
-        console.log(
-            `You lose! ${
-                computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1)
-            } beats ${humanChoice}.`
-        );
+    ) {
+        roundResult.textContent = `You lose! ${
+            computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1)
+        } beats ${humanChoice}.`;
         computerScore++;
         return true;
-    }
-    return false;
+    } 
 }
 let humanChoice;
 function scissorsUser() {
@@ -105,9 +103,11 @@ function playGame() {
 
     const paper = document.querySelector(".paper");
     paper.addEventListener("click", () => {
-        const roundResult = paperUser();
-        if (roundResult) {
-            roundsPlayed++;
+        if (roundsPlayed < maxRounds) {
+            const roundResult = paperUser();
+            if (roundResult) {
+                roundsPlayed++;
+            }
         }
         checkGameOver();
     });
